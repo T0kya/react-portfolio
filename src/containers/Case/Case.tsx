@@ -20,15 +20,17 @@ const HeroImage = styled(motion.img) `
 
 const Images = styled(motion.div) `
     display: flex;
-    flex-basis: 50%;
-    flex-wrap: 50%;
+    flex-basis: 49%;
+    flex-wrap: wrap;
+`
+const ImageContainer = styled(motion.div) `
+    max-width: 49%;
+    margin: 6px 6px 0 0;
 
     img {
-        max-width: 50%;
-        margin: 6px 6px 6px 0;
+        width: 100%
     }
 `
-
 interface ReferenceProps {
     heroImage: Asset
     description: string
@@ -78,14 +80,14 @@ const Case = () => {
         <HeroImage  initial="hidden" 
           animate="visible" 
           variants={variants}  src={item.fields.heroImage.fields.file.url} />
-        <Images variants={variants} initial="hidden"   ref={ref} animate={controls} >    
-          {item.fields.images.map(item => <motion.img 
-            key={item.fields.file.url}
-          
-            initial="hidden" 
-           
-            variants={variants} 
-            src={item.fields.file.url} />)}
+        <Images variants={variants} initial="hidden" ref={ref} animate={controls} >    
+          {item.fields.images.map(item => 
+            <ImageContainer key={item.fields.file.url}
+              initial="hidden" 
+              variants={variants} >
+              <img src={item.fields.file.url} />
+            </ImageContainer>)}
+         
         </Images>
        
       </CaseContainer>

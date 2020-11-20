@@ -19,6 +19,8 @@ const ImageContainer = styled.div `
 const CaseInfo = styled.div `
     margin: 70px auto;
     width: 50%;
+    display: flex;
+    align-items: flex-start;
 `
 
 const Tags = styled.div `
@@ -41,14 +43,16 @@ const ShowCase: React.FC<Props> = ({hero, title, caption, slug}) => {
     <CaseContainer>
       <ImageContainer style={{backgroundImage: `url(${hero})`}} />
       <CaseInfo>
-        <Tags>
-          <span>Photography</span>
-          <span>Commercial</span>
-        </Tags>
-        <h1>{title}</h1>
-        <p>
-          {caption}
-        </p>
+        <div>
+          <Tags>
+            <span>Photography</span>
+            <span>Commercial</span>
+          </Tags>
+          <h1>{title}</h1>
+          <p>
+            {caption}
+          </p>
+        </div>
         <Button url={`/photography/${slug}`}>
           Show More
         </Button>
