@@ -28,12 +28,6 @@ const Nav = () => {
       <NavLink to="/photography">
           Photography
       </NavLink>
-      <NavLink to="/coding">
-          Coding
-      </NavLink>
-      <NavLink to="/blog">
-          Blog
-      </NavLink>
       <NavLink to="/about">
           About
       </NavLink>

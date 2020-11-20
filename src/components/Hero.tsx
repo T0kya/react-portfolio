@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import BG from '../assets/Hero.png'
 import styled from 'styled-components'
+import { createClient, Entry, EntryCollection } from 'contentful'
 
 const HeroImageContainer =  styled.div `
     height: 80vh;
@@ -20,18 +21,36 @@ const Info = styled.p `
     font-weight: 300;
 `
 
+interface HeroProps {
+  caption: string
+  description: string
+  title: string
+}
+
+const client = createClient({
+  space: 'yjgyqsfydi6s',
+  accessToken: '69Jy5bE9B_zy-2cZAotXYU7QjTHh5h-dChanho1IlPw'
+})
+
 const Hero = () => {
+
+  const [data, setData] = useState<Entry<HeroProps>| null>(null)
+
+  useEffect(() => {
+    client.getEntry<HeroProps>('m4WvVSVDcIgT2oquchjHS')
+      .then((entry) => setData(entry))
+      .catch(console.error)
+  }, [])
 
   return (
     <>
       <HeroImageContainer style={{backgroundImage: `url(${BG})`}}/>
       <TextContainer>
         <Info>
-          Henkisesti pyörätiellä, fyysisesti Hyvinkäällä
+          {data?.fields.caption}
         </Info>
-        <h1>Photographer & front-end developer</h1>
-        <p>Rohkea ja räväkkä kooderi Hyvinkäältä. Jukolan talo, eteläisessä Hämeessä, seisoo erään mäen pohjoisella rinteellä, liki Toukolan kylää. Sen läheisin ym­päristö on kivinen tanner, mutta alempana alkaa pellot, joissa, ennenkuin talo oli häviöön mennyt, aaltoili teräinen vilja. Peltojen alla on niittu, apilaäyräinen, halkileikkaama monipolvisen ojan; ja runsaasti antoi se heiniä, ennenkuin joutui laitumeksi kylän karjalle. Muutoin on talolla avaria metsiä, soita ja erämaita, jotka, tämän tilustan ensimmäisen perustajan oivallisen toiminnan kautta, olivat langenneet sille osaksi jo ison jaon käydessä entisinä aikoina. </p>
-
+        <h1>{data?.fields.title}</h1>
+        <p>{data?.fields.description}</p>
       </TextContainer>
     </>
   )

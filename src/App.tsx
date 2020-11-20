@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
 import './App.css'
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
 import {reset } from 'styled-reset'
 import Nav from './components/Nav'
 import Home from './containers/Home/Home'
+
+import {createClient} from 'contentful'
+import Case from './containers/Case/Case'
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -37,6 +40,7 @@ const theme = {
   grey: '#f3f6ff'
 }
 
+
 function App() {
   return (
     <BrowserRouter>
@@ -44,9 +48,13 @@ function App() {
         <GlobalStyle />
         <Nav />
         <Switch>
+          <Route path="/photography/:slug">
+            <Case />
+          </Route>
           <Route path="/">
             <Home />
           </Route>
+         
         </Switch>
       </ThemeProvider>
     </BrowserRouter>
