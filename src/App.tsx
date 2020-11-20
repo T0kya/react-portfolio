@@ -1,25 +1,43 @@
 import React from 'react'
-import logo from './logo.svg'
+import {BrowserRouter, Switch, Route} from 'react-router-dom'
 import './App.css'
+import { createGlobalStyle } from 'styled-components'
+import {reset } from 'styled-reset'
+import Nav from './components/Nav'
+import Home from './containers/Home/Home'
+
+const GlobalStyle = createGlobalStyle`
+  ${reset}
+  body {
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  p {
+    margin: 10px 0;
+    line-height: 24px;
+  }
+
+  h1 {
+    font-family: 'Righteous', cursive;
+    font-size: 40px;
+    margin-bottom: 25px;
+  }
+`
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <GlobalStyle />
+        <Nav />
+        <Switch>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </div>
+    </BrowserRouter>
+    
   )
 }
 
